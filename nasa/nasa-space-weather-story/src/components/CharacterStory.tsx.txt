@@ -1,0 +1,76 @@
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+
+interface CharacterStoryProps {
+  character: {
+    name: string;
+    role: string;
+    image: string;
+    story: string[];
+    impact: string;
+  };
+  onBack: () => void;
+  onNext?: () => void;
+}
+
+const CharacterStory = ({ character, onBack, onNext }: CharacterStoryProps) => {
+  return (
+    <div className="min-h-screen py-16 px-4">
+      <div className="container mx-auto max-w-4xl">
+        <Button 
+          variant="ghost" 
+          onClick={onBack}
+          className="mb-8 text-foreground/80 hover:text-foreground"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Back to Characters
+        </Button>
+        
+        <Card className="cosmic-glow border-muted overflow-hidden">
+          <div className="relative h-80 overflow-hidden">
+            <img 
+              src={character.image} 
+              alt={character.name}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
+          </div>
+          
+          <CardContent className="p-8 space-y-6">
+            <div>
+              <h2 className="text-4xl font-bold mb-2">{character.name}</h2>
+              <p className="text-xl text-primary">{character.role}</p>
+            </div>
+            
+            <div className="space-y-4">
+              {character.story.map((paragraph, index) => (
+                <p key={index} className="text-lg leading-relaxed text-foreground/90">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+            
+            <div className="bg-muted/50 p-6 rounded-lg border border-border">
+              <h3 className="text-xl font-bold mb-3 text-accent">Space Weather Impact</h3>
+              <p className="text-lg text-foreground/90">{character.impact}</p>
+            </div>
+            
+            {onNext && (
+              <Button 
+                onClick={onNext}
+                size="lg"
+                className="w-full bg-gradient-solar hover:opacity-90 transition-opacity"
+              >
+                Next Character
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+};
+
+export default CharacterStory;

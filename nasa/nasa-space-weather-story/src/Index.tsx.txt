@@ -1,0 +1,158 @@
+import { useState } from "react";
+import HeroSection from "@/components/HeroSection";
+import StoryCard from "@/components/StoryCard";
+import CharacterStory from "@/components/CharacterStory";
+import { Rocket, Tractor, Plane, Zap, Users } from "lucide-react";
+import astronautImg from "@/assets/astronaut-character.jpg";
+import farmerImg from "@/assets/farmer-character.jpg";
+import pilotImg from "@/assets/pilot-character.jpg";
+import operatorImg from "@/assets/operator-character.jpg";
+import familyImg from "@/assets/family-aurora.jpg";
+
+const characters = [
+  {
+    id: "astronaut",
+    name: "Captain Nova",
+    role: "International Space Station Astronaut",
+    image: astronautImg,
+    icon: <Rocket className="w-12 h-12" />,
+    description: "Living in space during a solar storm",
+    story: [
+      "Hi there! I'm Captain Nova, and I live on the International Space Station, 250 miles above Earth. From up here, I have the best view of our beautiful blue planet and the magnificent Sun.",
+      "Yesterday, something amazing and a bit scary happened. Scientists on Earth warned us that the Sun had released a massive solar flare—a huge burst of energy shooting out into space. Think of it like the Sun sneezing, but instead of droplets, it sends out powerful waves of particles and radiation!",
+      "When these solar particles reach our space station, they can be dangerous. The station's walls protect us most of the time, but during big solar storms, we have to move to special shielded areas. It's like taking shelter during a thunderstorm, except the storm is coming from 93 million miles away!",
+      "The coolest part? I got to see the auroras from space—beautiful dancing lights covering Earth's poles like a glowing curtain. They happen when solar particles interact with Earth's magnetic field and atmosphere."
+    ],
+    impact: "Solar radiation can harm astronauts and damage sensitive equipment on spacecraft. Space agencies must carefully monitor space weather to keep astronauts safe and ensure mission success."
+  },
+  {
+    id: "farmer",
+    name: "Farmer Jake",
+    role: "High-Tech Farmer",
+    image: farmerImg,
+    icon: <Tractor className="w-12 h-12" />,
+    description: "Using GPS technology to manage crops",
+    story: [
+      "Howdy! I'm Farmer Jake, and I run a large farm where I grow corn and soybeans. Farming has changed a lot since my grandpa's time—now we use satellites and GPS technology to help our crops grow better!",
+      "My tractor uses GPS signals from satellites in space to drive in perfectly straight lines and know exactly where to plant seeds or spray fertilizer. It's like having a super-smart robot helper that never gets tired.",
+      "But when the Sun sends out a big solar storm, something strange happens to my GPS. The signals from satellites get all scrambled, like trying to listen to the radio during a thunderstorm with lots of static.",
+      "Last month, during a solar storm, my tractor's GPS stopped working right. I had to pause my planting until the storm passed. It's amazing how the Sun, so far away, can affect something as practical as farming!"
+    ],
+    impact: "GPS signals can become unreliable during solar storms, disrupting precision farming equipment. Farmers may need to pause operations until satellite signals stabilize, potentially affecting planting and harvest schedules."
+  },
+  {
+    id: "pilot",
+    name: "Captain Sky",
+    role: "Commercial Airline Pilot",
+    image: pilotImg,
+    icon: <Plane className="w-12 h-12" />,
+    description: "Flying through the skies during space weather",
+    story: [
+      "Welcome aboard! I'm Captain Sky, and I fly big passenger planes across the ocean. Flying is usually smooth and predictable, but space weather can make my job quite challenging!",
+      "When the Sun releases a coronal mass ejection—a huge bubble of solar particles—it can affect our plane in several ways. First, it messes with our communication and navigation systems. Imagine trying to talk on a phone with lots of static and interference.",
+      "The most serious concern is radiation exposure. At cruising altitude, we're closer to space and have less atmosphere protecting us from solar radiation. During big solar storms, we have to fly at lower altitudes or take different routes to keep everyone safe.",
+      "I once saw the most incredible aurora while flying near the North Pole during a solar storm. The entire sky was filled with dancing green and purple lights—absolutely breathtaking! My passengers and crew were amazed. Space weather isn't always a problem; sometimes it creates the most beautiful light show on Earth!"
+    ],
+    impact: "Solar storms can disrupt radio communications and GPS navigation, requiring pilots to use alternative systems. High-altitude flights may need to be rerouted to lower altitudes to reduce radiation exposure for crew and passengers."
+  },
+  {
+    id: "operator",
+    name: "Elena the Grid Guardian",
+    role: "Power Grid Operator",
+    image: operatorImg,
+    icon: <Zap className="w-12 h-12" />,
+    description: "Keeping the lights on during solar storms",
+    story: [
+      "Hello! I'm Elena, and I work in a control room where we manage the electrical power grid. My job is to make sure electricity flows safely to millions of homes, schools, and hospitals.",
+      "Solar storms can be one of my biggest challenges. When those powerful solar particles hit Earth's magnetic field, they create something called geomagnetically induced currents (GICs). These are like electrical waves that can flow through power lines and transformers.",
+      "Think of it like trying to pour water through a pipe that suddenly gets a huge wave of water all at once—it can damage the pipe! Similarly, GICs can damage transformers and cause blackouts affecting entire regions.",
+      "We have special warning systems that tell us when a solar storm is coming. When we get an alert, my team springs into action. We might temporarily shut down certain parts of the grid, reroute power, or bring backup systems online. It's like preparing for a big thunderstorm, but the storm comes from space!"
+    ],
+    impact: "Large solar storms can induce electrical currents in power grids, potentially damaging transformers and causing widespread blackouts. Power companies must monitor space weather forecasts and take protective measures to prevent service disruptions."
+  },
+  {
+    id: "family",
+    name: "The Aurora Watchers",
+    role: "A Family's Amazing Discovery",
+    image: familyImg,
+    icon: <Users className="w-12 h-12" />,
+    description: "Witnessing the beauty of space weather",
+    story: [
+      "Hi! We're the Martinez family, and we experienced something absolutely magical last winter. We live in Alaska, where space weather creates one of nature's most spectacular shows—the Northern Lights, or aurora borealis!",
+      "One evening, we got an alert that a big solar storm was headed our way. Instead of being worried, we were excited! We bundled up in warm clothes, made hot chocolate, and drove to a spot away from city lights.",
+      "As darkness fell, the sky started to glow. First, it was just a faint green shimmer, but then—WOW! Waves of green, purple, and pink light danced across the entire sky. It looked like giant curtains of light swaying in a cosmic breeze.",
+      "Our daughter Luna said it looked like the sky was doing magic. She was right! The aurora happens when solar particles collide with gases in Earth's atmosphere. Different gases create different colors—oxygen makes green and red, while nitrogen creates blue and purple. We took lots of photos, but nothing captures how breathtaking it was in person. Space weather isn't always scary—sometimes it reminds us how connected we are to the Sun and how beautiful our universe is!"
+    ],
+    impact: "While most people on Earth are safely protected from space weather by our atmosphere and magnetic field, solar storms create beautiful auroras that can be seen at higher latitudes. These light shows remind us of the dynamic connection between the Sun and Earth!"
+  }
+];
+
+const Index = () => {
+  const [view, setView] = useState<"hero" | "characters" | "story">("hero");
+  const [selectedCharacter, setSelectedCharacter] = useState<number>(0);
+
+  const handleStartStory = () => {
+    setView("characters");
+  };
+
+  const handleCharacterSelect = (index: number) => {
+    setSelectedCharacter(index);
+    setView("story");
+  };
+
+  const handleBack = () => {
+    setView("characters");
+  };
+
+  const handleNext = () => {
+    if (selectedCharacter < characters.length - 1) {
+      setSelectedCharacter(selectedCharacter + 1);
+    } else {
+      setView("characters");
+    }
+  };
+
+  if (view === "hero") {
+    return <HeroSection onStartStory={handleStartStory} />;
+  }
+
+  if (view === "story") {
+    return (
+      <CharacterStory 
+        character={characters[selectedCharacter]}
+        onBack={handleBack}
+        onNext={selectedCharacter < characters.length - 1 ? handleNext : undefined}
+      />
+    );
+  }
+
+  return (
+    <div className="min-h-screen py-16 px-4">
+      <div className="container mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            Choose Your Perspective
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Discover how space weather affects different people on Earth
+          </p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {characters.map((character, index) => (
+            <StoryCard
+              key={character.id}
+              title={character.name}
+              description={character.description}
+              image={character.image}
+              icon={character.icon}
+              onClick={() => handleCharacterSelect(index)}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Index;
